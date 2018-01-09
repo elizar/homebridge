@@ -2,7 +2,7 @@
 FROM node:latest
 
 RUN apt-get update
-RUN apt-get install build-essential avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev git -y
+RUN apt-get install build-essential avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev -y
 
 # Install homebridge
 RUN npm install -g homebridge --unsafe-perm
@@ -11,4 +11,4 @@ RUN npm install -g homebridge --unsafe-perm
 # yeelight
 RUN npm install -g homebridge-yeelight --unsafe-perm
 
-ENTRYPOINT homebridge
+CMD service dbus start && service avahi-daemon start && homebridge
